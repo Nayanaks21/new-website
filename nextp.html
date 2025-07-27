@@ -5,24 +5,32 @@
   <title>Balloon Surprise 🎈</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
       background: #ffe6f0;
-      height: 100vh;
       font-family: 'Segoe Script', cursive;
+      height: auto;
+      overflow-x: hidden;
+    }
+
+    .container {
+      min-height: 100vh;
       position: relative;
+      padding-bottom: 80px; /* space for button */
     }
 
     .message {
-      position: absolute;
-      top: 20px;
       width: 100%;
       text-align: center;
       font-size: 1.5em;
       color: #d63384;
       animation: fadeIn 3s ease-in-out;
+      padding: 20px 10px;
     }
 
     @keyframes fadeIn {
@@ -34,7 +42,7 @@
       width: 70px;
       height: 100px;
       background: radial-gradient(circle at 30% 30%, #ff66b2, #ff3385);
-      border-radius: 50% 50% 50% 50%;
+      border-radius: 50%;
       position: absolute;
       cursor: pointer;
       box-shadow: 0 0 20px #ff33aa;
@@ -116,7 +124,7 @@
     }
 
     .last-page-btn {
-      position: absolute;
+      position: fixed;
       bottom: 20px;
       right: 20px;
       padding: 10px 20px;
@@ -127,7 +135,7 @@
       font-size: 1em;
       cursor: pointer;
       box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-      z-index: 30;
+      z-index: 100;
     }
 
     .last-page-btn:hover {
@@ -136,8 +144,9 @@
   </style>
 </head>
 <body>
-
-  <div class="message">Click the balloons to reveal sweet messages 💖</div>
+  <div class="container">
+    <div class="message">Click the balloons to reveal sweet messages 💖</div>
+  </div>
 
   <button class="last-page-btn" onclick="location.href='last.html'">Last Page ➡️</button>
 
