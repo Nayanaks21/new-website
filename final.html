@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💖 Our Love Story</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe Script', cursive;
+      background: linear-gradient(to bottom, #ffe0f0, #fff0f5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    video {
+      width: 50%;
+      max-height: 60vh;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .caption {
+      margin-top: 20px;
+      font-size: 1.5em;
+      color: #d63384;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid #d63384;
+      width: 0;
+      animation: typing 3s steps(40, end) forwards, blink 0.7s step-end infinite alternate;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 80% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 10px 25px;
+      background: #ff69b4;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-size: 1.1em;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #d63384;
+    }
+
+    @media (max-width: 768px) {
+      video {
+        width: 95%;
+        max-height: 50vh;
+      }
+
+      .caption {
+        font-size: 1.2em;
+      }
+
+      button {
+        font-size: 1em;
+        padding: 8px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <video id="videoPlayer" src="vedio1.mp4" controls autoplay playsinline></video>
+  <div id="caption" class="caption">My first moment with you 💖</div>
+  <button onclick="nextVideo()">Next video 💕</button>
+
+  <script>
+    const videos = [
+      { src: "vedio1.mp4", text: "My first moment with you 💖" },
+      { src: "vedio12.mp4", text: "The way you smile melts me 😊" },
+      { src: "vedio10.mp4", text: "Every second with you is magic ✨" },
+      { src: "vedio4.mp4", text: "I never want this journey to end 🌈" },
+      { src: "vedio11.mp4", text: "You are my peace and my chaos 💘" },
+      { src: "vedio13.mp4", text: "You make my heart dance 💃🕺" },
+      { src: "vedio7.mp4", text: "Forever is only meaningful with you 💍" },
+      { src: "vedio8.mp4", text: "You complete my world 🌍" },
+      { src: "vedio9.mp4", text: "I love you more every day 💞" }
+    ];
+
+    let current = 0;
+    const videoElement = document.getElementById("videoPlayer");
+    const captionElement = document.getElementById("caption");
+
+    function updateVideo() {
+      videoElement.src = videos[current].src;
+      captionElement.innerText = videos[current].text;
+      captionElement.style.animation = 'none';
+      void captionElement.offsetWidth; // restart animation
+      captionElement.style.animation = 'typing 3s steps(40, end) forwards, blink 0.7s step-end infinite alternate';
+      videoElement.play();
+    }
+
+    function nextVideo() {
+      current++;
+      if (current >= videos.length) {
+        window.location.href = "nextp.html"; // ✅ go to next page
+      } else {
+        updateVideo();
+      }
+    }
+
+    // Auto move to next page after 9th video ends
+    videoElement.addEventListener("ended", () => {
+      if (current === videos.length - 1) {
+        window.location.href = "nextp.html";
+      }
+    });
+
+    // Optional: if user skips or loads other video manually
+    videoElement.addEventListener("loadedmetadata", () => {
+      videoElement.play();
+    });
+  </script>
+
+</body>
+</html>

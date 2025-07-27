@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Love Story 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe Script', cursive;
+      background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
+      color: #d6336c;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-top: 30px;
+    }
+
+    .story-section {
+      max-width: 800px;
+      margin: 50px auto;
+      font-size: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .story-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      max-width: 800px;
+      margin: 50px auto;
+    }
+
+    a.button {
+      background: #ff69b4;
+      color: white;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      box-shadow: 0 0 10px #ff69b4;
+      transition: 0.3s;
+    }
+
+    a.button:hover {
+      background: #ff1493;
+      box-shadow: 0 0 15px #ff1493;
+    }
+
+    /* Optional: Soft falling petals (just a few) */
+    .petal {
+      position: fixed;
+      top: -50px;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: fall 10s linear infinite;
+    }
+
+    .petal:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .petal:nth-child(2) { left: 30%; animation-delay: 2s; }
+    .petal:nth-child(3) { left: 60%; animation-delay: 4s; }
+    .petal:nth-child(4) { left: 80%; animation-delay: 6s; }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<h1>💌 Our Love Story</h1>
+
+<div class="story-section">Once upon a time, a sweet girl saw a boy with a spark in his eyes.</div>
+<div class="story-section">Day by day, their smiles grew brighter and their hearts closer.</div>
+<div class="story-section">They talked endlessly, laughed often, and created beautiful memories.</div>
+<div class="story-section">And now… here she is, offering her love and dreams with a ring.</div>
+<div class="story-section">Because love is not just a feeling… it’s a promise to grow together forever. 💖</div>
+
+<div class="nav-buttons">
+  <a href="index.html" class="button">⬅️ Back</a>
+  <a href="final.html" class="button">Continue ➡️</a>
+</div>
+
+<!-- Petals (Optional) -->
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+
+<script>
+  // Show story sections when scrolling
+  const sections = document.querySelectorAll('.story-section');
+  const reveal = () => {
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        section.classList.add('visible');
+      }
+    });
+  };
+  window.addEventListener('scroll', reveal);
+  window.addEventListener('load', reveal);
+</script>
+
+</body>
+</html>

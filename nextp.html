@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Balloon Surprise 🎈</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #ffe6f0;
+      height: 100vh;
+      font-family: 'Segoe Script', cursive;
+      position: relative;
+    }
+
+    .message {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 1.5em;
+      color: #d63384;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0 }
+      to { opacity: 1 }
+    }
+
+    .balloon {
+      width: 70px;
+      height: 100px;
+      background: radial-gradient(circle at 30% 30%, #ff66b2, #ff3385);
+      border-radius: 50% 50% 50% 50%;
+      position: absolute;
+      cursor: pointer;
+      box-shadow: 0 0 20px #ff33aa;
+      animation: floatUp 15s linear infinite;
+      z-index: 10;
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 30px;
+      background: #666;
+      left: 50%;
+      top: 100%;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) }
+      100% { transform: translateY(-120vh) }
+    }
+
+    .background-balloon {
+      width: 40px;
+      height: 60px;
+      background: radial-gradient(circle at 30% 30%, #ffd1dc, #ffb6c1);
+      border-radius: 50%;
+      position: absolute;
+      opacity: 0.6;
+      animation: rise 10s linear infinite;
+      z-index: 1;
+    }
+
+    .background-balloon::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 20px;
+      background: #aaa;
+      left: 50%;
+      top: 100%;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(100vh); }
+      100% { transform: translateY(-120vh); }
+    }
+
+    .petal {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: pink;
+      border-radius: 50%;
+      animation: fall 1s linear forwards;
+    }
+
+    @keyframes fall {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: translateY(50px) scale(0.5); opacity: 0; }
+    }
+
+    .popup-message {
+      position: absolute;
+      background: #fff0f5;
+      border: 2px solid #d63384;
+      border-radius: 10px;
+      padding: 8px 15px;
+      color: #d63384;
+      font-size: 1em;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: riseUp 1.5s ease forwards;
+      z-index: 20;
+    }
+
+    @keyframes riseUp {
+      0% { opacity: 0; transform: translateY(0); }
+      100% { opacity: 1; transform: translateY(-50px); }
+    }
+
+    .last-page-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background: #ff69b4;
+      border: none;
+      border-radius: 20px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+      z-index: 30;
+    }
+
+    .last-page-btn:hover {
+      background: #d63384;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="message">Click the balloons to reveal sweet messages 💖</div>
+
+  <button class="last-page-btn" onclick="location.href='last.html'">Last Page ➡️</button>
+
+  <audio id="popSound" preload="auto">
+    <source src="https://www.soundjay.com/button/sounds/button-16.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const sweetMessages = [
+      "You're my sunshine ☀️",
+      "You make me smile 💖",
+      "Every moment with you is magical ✨",
+      "You're my everything 💕",
+      "Forever is with you 💍",
+      "I love you to the moon 🌙",
+      "You're my dream come true 🌈",
+      "You are my happy place 🌸",
+      "Always yours 💞"
+    ];
+
+    // Create messaging balloons
+    for (let i = 0; i < sweetMessages.length; i++) {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.style.left = Math.random() * 90 + '%';
+      balloon.style.animationDuration = (12 + Math.random() * 5) + 's';
+      document.body.appendChild(balloon);
+
+      balloon.addEventListener('click', (e) => {
+        balloon.remove();
+        showPopup(e.clientX, e.clientY, sweetMessages[i]);
+        playSound();
+        petals(e.clientX, e.clientY);
+      });
+    }
+
+    // Create background balloons
+    for (let i = 0; i < 50; i++) {
+      const bg = document.createElement('div');
+      bg.className = 'background-balloon';
+      bg.style.left = Math.random() * 100 + '%';
+      bg.style.top = Math.random() * 100 + '%';
+      bg.style.animationDelay = Math.random() * 10 + 's';
+      bg.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.body.appendChild(bg);
+    }
+
+    function showPopup(x, y, message) {
+      const msg = document.createElement('div');
+      msg.className = 'popup-message';
+      msg.style.left = x + 'px';
+      msg.style.top = y + 'px';
+      msg.innerText = message;
+      document.body.appendChild(msg);
+      setTimeout(() => msg.remove(), 3000);
+    }
+
+    function playSound() {
+      document.getElementById('popSound').play();
+    }
+
+    function petals(x, y) {
+      for (let i = 0; i < 10; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = (x + Math.random() * 30 - 15) + 'px';
+        petal.style.top = (y + Math.random() * 30 - 15) + 'px';
+        petal.style.background = ['#ff66b2', '#ff9999', '#ffccff'][i % 3];
+        document.body.appendChild(petal);
+        setTimeout(() => petal.remove(), 1000);
+      }
+    }
+  </script>
+</body>
+</html>
